@@ -1,0 +1,8 @@
+<div>
+    <md-button class="md-raised md-primary" ng-click="vm.rollDice()" ng-disabled="!vm.canRoll">Roll!</md-button>
+    <div class="dice">
+        <span ng-repeat="die in vm.dice track by $index">
+            {{ die }}
+        </span>
+    </div>
+</div>
