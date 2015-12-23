@@ -35,7 +35,7 @@
          * @return {Boolean} True if rolledTimes counter is less than max roll count
          */
         function canRoll() {
-            return ( this.rolledTimes < gameRules.maxRolls );
+            return ( this.rolledTimes < gameRules.MAX_ROLLS );
         }
 
         /**

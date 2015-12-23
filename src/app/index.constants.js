@@ -3,14 +3,18 @@
     'use strict';
 
     var gameRules = {
-        diceCount: 5,
-        maxRolls: 3
+        DICE_COUNT: 5,
+        MAX_ROLLS: 3
     };
+
+    var notificationSettings = {
+        POSITION: 'top right'
+    }
 
     angular
         .module( 'dices' )
         .constant( 'malarkey', malarkey )
         .constant( 'moment', moment )
+        .constant( 'notificationSettings', notificationSettings )
         .constant( 'gameRules', gameRules );
-
 } )();

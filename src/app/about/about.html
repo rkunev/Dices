@@ -1,19 +1,24 @@
 <div layout="vertical" layout-fill layout="row">
     <md-content flex="100">
         <header>
-            <acme-navbar creation-date="about.creationDate"></acme-navbar>
+            <acme-navbar creation-date="vm.creationDate"></acme-navbar>
         </header>
         <div layout="row" layout-wrap>
             <div layout-align="center" flex="33">
                 <md-card>
                     <md-card-content>
-                        <h3 class="md-title">{{ about.title }}</h3>
-                        <p>{{ about.description }}</p>
+                        <h3 class="md-title">{{ vm.title }}</h3>
+                        <p>{{ vm.description }}</p>
                     </md-card-content>
                 </md-card>
             </div>
             <div flex="33">
                 <dice></dice>
+            </div>
+            <div layout-align="center" flex="33">
+                <div>
+                    <md-button class="md-raised md-error" ng-click="vm.showError()">Show error</md-button>
+                </div>
             </div>
         </div>
     </md-content>

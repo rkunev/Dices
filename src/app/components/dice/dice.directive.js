@@ -45,7 +45,7 @@
 
             //* Populate initial dice values using gameRules */
             function getInitialDiceValues() {
-                for ( var i = 1; i <= gameRules.diceCount; i++ ) {
+                for ( var i = 1; i <= gameRules.DICE_COUNT; i++ ) {
                     vm.dice.push( i );
                 }
             }
