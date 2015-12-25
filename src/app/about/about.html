@@ -17,7 +17,10 @@
             </div>
             <div layout-align="center" flex="33">
                 <div>
-                    <md-button class="md-raised md-error" ng-click="vm.showError()">Show error</md-button>
+                    <md-button type="button" class="md-raised md-info" ng-click="vm.success( 'Success kid!' )">Show success notification</md-button>
+                </div>
+                <div>
+                    <md-button type="button" class="md-raised md-success" ng-click="vm.clearActiveNotification()">Clear all notifications</md-button>
                 </div>
             </div>
         </div>

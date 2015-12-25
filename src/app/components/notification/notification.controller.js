@@ -7,7 +7,7 @@
 
     /** @ngInject */
     function NotificationController( $scope, $mdToast, message ) {
-        var vm = $scope;
+        var vm = this;
 
         vm.closeToast = closeToast;
         vm.message = message;
