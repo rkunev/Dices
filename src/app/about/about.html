@@ -3,25 +3,46 @@
         <header>
             <acme-navbar creation-date="vm.creationDate"></acme-navbar>
         </header>
-        <div layout="row" layout-wrap>
-            <div layout-align="center" flex="33">
-                <md-card>
-                    <md-card-content>
-                        <h3 class="md-title">{{ vm.title }}</h3>
-                        <p>{{ vm.description }}</p>
-                    </md-card-content>
-                </md-card>
+        <div layout="row" layout-wrap style="margin-bottom: 25px;">
+            <div layout-align="start center" flex="25" flex-offset="25">
+                <form name="playerForm" ng-submit="vm.saveCurrentPlayer()">
+                    <md-input-container>
+                        <label>What's your name?</label>
+                        <input ng-model="vm.currentPlayer.name">
+                    </md-input-container>
+                    <md-button type="button" class="md-raised md-primary" ng-click="vm.saveCurrentPlayer()">Use this name</md-button>
+                </form>
             </div>
-            <div flex="33">
+            <div layout-align="end center" flex="25">
                 <dice></dice>
             </div>
-            <div layout-align="center" flex="33">
-                <div>
-                    <md-button type="button" class="md-raised md-info" ng-click="vm.success( 'Success kid!' )">Show success notification</md-button>
-                </div>
-                <div>
-                    <md-button type="button" class="md-raised md-success" ng-click="vm.clearActiveNotification()">Clear all notifications</md-button>
-                </div>
+        </div>
+        <div layout="row" layout-wrap>
+            <div flex="50" flex-offset="25">
+                <table class="text-left">
+                    <thead>
+                        <tr>
+                            <th width="10%">Combination</th>
+                            <th width="85%">Result</th>
+                            <th></th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr ng-repeat="result in vm.boardResults">
+                            <td>{{ result.label }}</td>
+                            <td ng-class="{ 'disabled': result.isLocked }">{{ result.value }}</td>
+                            <td>
+                                <md-button ng-disabled="result.isLocked" ng-click="vm.saveResult( result )" type="button" class="md-flat"><md-icon>check</md-icon></md-button>
+                            </td>
+                        </tr>
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <td>Total:</td>
+                            <td><strong>{{ vm.boardTotal }}</strong></td>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </md-content>

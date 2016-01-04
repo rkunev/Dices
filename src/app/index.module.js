@@ -1,7 +1,18 @@
-(function() {
-  'use strict';
+( function() {
+    'use strict';
 
-  angular
-    .module('dices', ['ngAnimate', 'ngSanitize', 'ngMessages', 'ngAria', 'restangular', 'ui.router', 'ngMaterial', 'toastr']);
-
-})();
+    angular
+        .module( 'dices', [
+            'dices.player',
+            'dices.board',
+            'ngAnimate',
+            'ngSanitize',
+            'ngMessages',
+            'ngAria',
+            'restangular',
+            'ui.router',
+            'ngMaterial',
+            'LocalStorageModule',
+            'toastr'
+        ] );
+} )();
