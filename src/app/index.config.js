@@ -6,7 +6,7 @@
         .config( config );
 
     /** @ngInject */
-    function config( $logProvider, toastrConfig ) {
+    function config( $logProvider, $ngReduxProvider, toastrConfig, rootReducer ) {
         // Enable log
         $logProvider.debugEnabled( true );
 
@@ -16,5 +16,8 @@
         toastrConfig.positionClass = 'toast-top-right';
         toastrConfig.preventDuplicates = true;
         toastrConfig.progressBar = true;
+
+        // Initialize ngRedux with the rootReducer
+        $ngReduxProvider.createStoreWith( rootReducer );
     }
 } )();

@@ -13,21 +13,18 @@
             controller: DiceController,
             controllerAs: 'vm',
             // If scope is not present, the unit tests will throw an error
-            scope: {
-                roll: '='
-            },
+            scope: {},
             bindToController: true
         };
 
         return directive;
 
         /** @ngInject */
-        function DiceController( $scope, diceEngine, gameRules ) {
+        function DiceController( $scope, $ngRedux, diceEngine, gameRules ) {
             var vm = this;
 
             vm.canRoll = true;
             vm.dice = [];
-            vm.roll = vm.dice;
             vm.rollDice = rollDice;
 
             activate();
@@ -37,9 +34,29 @@
                 diceEngine.resetRollCounter();
             }
 
+            // var unsubscribe = $ngRedux.subscribe( function() {
+            //     var state = $ngRedux.getState();
+
+            //     if ( state.diceRoll.saveResult ) {
+            //         console.log( 'enable roll again' );
+            //         //* Unlock button */
+            //         diceEngine.resetRollCounter();
+            //         vm.canRoll = diceEngine.canRoll();
+
+            //         //* Clear dices */
+            //         vm.dice.forEach( function( die ) {
+            //             die.isLocked = false;
+            //         } );
+
+            //         //* Roll'em again */
+            //         rollDice();
+            //     }
+            // } );
+            // $scope.$on( '$destroy', unsubscribe );
+
             $scope.$on( 'dices.saveResult', function() {
-                diceEngine.resetRollCounter();
                 //* Unlock button */
+                diceEngine.resetRollCounter();
                 vm.canRoll = diceEngine.canRoll();
 
                 //* Clear dices */
@@ -67,6 +84,11 @@
                 vm.canRoll = diceEngine.canRoll();
 
                 $scope.$emit( 'dices.roll', rollResult );
+
+                // $ngRedux.dispatch( {
+                //     type: 'DICE_ROLL',
+                //     rollResult: rollResult
+                // } );
             }
 
             //* Populate initial dice values using gameRules */

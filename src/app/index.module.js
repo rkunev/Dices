@@ -13,6 +13,7 @@
             'ui.router',
             'ngMaterial',
             'LocalStorageModule',
+            'ngRedux',
             'toastr'
         ] );
 } )();

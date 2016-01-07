@@ -1,7 +1,9 @@
 {
   "name": "dices",
   "version": "0.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "redux": "^3.0.5"
+  },
   "scripts": {
     "test": "gulp test"
   },
