@@ -1,0 +1,24 @@
+<table class="text-left table-xs">
+    <thead>
+        <tr>
+            <th width="40">Combination</th>
+            <th width="50">Result</th>
+            <th width="10"></th>
+        </tr>
+    </thead>
+    <tbody>
+        <tr ng-repeat="result in vm.boardResults">
+            <td>{{ result.label }}</td>
+            <td ng-class="{ 'disabled': result.isLocked }">{{ result.value }}</td>
+            <td>
+                <md-button ng-disabled="result.isLocked" ng-click="vm.saveResult( result )" type="button" class="md-flat md-button-sm"><md-icon>check</md-icon></md-button>
+            </td>
+        </tr>
+    </tbody>
+    <tfoot>
+        <tr>
+            <td>Total:</td>
+            <td><strong>{{ vm.boardTotal }}</strong></td>
+        </tr>
+    </tfoot>
+</table>

@@ -20,7 +20,7 @@
         return directive;
 
         /** @ngInject */
-        function DiceController( $scope, $ngRedux, diceEngine, gameRules ) {
+        function DiceController( $scope, $rootScope, diceEngine, gameRules ) {
             var vm = this;
 
             vm.canRoll = true;
@@ -34,7 +34,15 @@
                 diceEngine.resetRollCounter();
             }
 
-            $scope.$on( 'dices.saveResult', function() {
+            //* Events */
+            var unsubscribeFromSaveResult = $rootScope.$on( 'dices.saveResult', resultSaved );
+            $scope.$on( '$destroy', cleanUpEvents );
+
+            function cleanUpEvents() {
+                unsubscribeFromSaveResult();
+            }
+
+            function resultSaved() {
                 //* Unlock button */
                 diceEngine.resetRollCounter();
                 vm.canRoll = diceEngine.canRoll();
@@ -46,7 +54,7 @@
 
                 //* Roll'em again */
                 rollDice();
-            } );
+            }
 
             //* Roll all the dice */
             function rollDice() {
@@ -63,7 +71,7 @@
                 diceEngine.incrementRollCounter();
                 vm.canRoll = diceEngine.canRoll();
 
-                $scope.$emit( 'dices.roll', rollResult );
+                $rootScope.$emit( 'dices.roll', rollResult );
             }
 
             //* Populate initial dice values using gameRules */
