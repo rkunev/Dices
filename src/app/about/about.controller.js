@@ -6,7 +6,7 @@
         .controller( 'AboutController', AboutController );
 
     /** @ngInject */
-    function AboutController( $scope, notification, player, board ) {
+    function AboutController( $scope, notification, player, board, BoardModel ) {
         var vm = this;
 
         vm.creationDate = 1449843091733;
@@ -15,99 +15,7 @@
         vm.saveCurrentPlayer = saveCurrentPlayer;
 
         vm.boardTotal = 0;
-        vm.boardResults = {
-            ones: {
-                id: 1,
-                label: 'Ones',
-                value: 0,
-                isLocked: false
-            },
-            twos: {
-                id: 2,
-                label: 'Twos',
-                value: 0,
-                isLocked: false
-            },
-            threes: {
-                id: 3,
-                label: 'Threes',
-                value: 0,
-                isLocked: false
-            },
-            fours: {
-                id: 4,
-                label: 'Fours',
-                value: 0,
-                isLocked: false
-            },
-            fives: {
-                id: 5,
-                label: 'Fives',
-                value: 0,
-                isLocked: false
-            },
-            sixes: {
-                id: 6,
-                label: 'Sixes',
-                value: 0,
-                isLocked: false
-            },
-            onePair: {
-                id: 7,
-                label: '1 Pair',
-                value: 0,
-                isLocked: false
-            },
-            twoPairs: {
-                id: 8,
-                label: '2 Pairs',
-                value: 0,
-                isLocked: false
-            },
-            threeOfAKind: {
-                id: 9,
-                label: '3 of a Kind',
-                value: 0,
-                isLocked: false
-            },
-            fourOfAKind: {
-                id: 10,
-                label: '4 of a Kind',
-                value: 0,
-                isLocked: false
-            },
-            smallStraight: {
-                id: 11,
-                label: 'Small Straight',
-                value: 0,
-                isLocked: false
-            },
-            largeStraight: {
-                id: 12,
-                label: 'Large Straight',
-                value: 0,
-                isLocked: false
-            },
-            fullHouse: {
-                id: 13,
-                label: 'Full House',
-                value: 0,
-                isLocked: false
-            },
-            yatzy: {
-                id: 14,
-                label: 'Yatzy',
-                value: 0,
-                isLocked: false
-            },
-            chance: {
-                id: 15,
-                label: 'Chance',
-                value: 0,
-                isLocked: false
-            }
-        };
-
+        vm.boardResults = new BoardModel();
         vm.saveResult = saveResult;
 
         // var unsubscribe = $ngRedux.subscribe( function() {
