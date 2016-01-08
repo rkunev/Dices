@@ -18,30 +18,6 @@
         vm.boardResults = new BoardModel();
         vm.saveResult = saveResult;
 
-        // var unsubscribe = $ngRedux.subscribe( function() {
-        //     var state = $ngRedux.getState(),
-        //         rollResult = state.diceRoll.rollResult;
-
-        //     console.log( 'handleDiceRoll:', rollResult );
-
-        //     angular.forEach( vm.boardResults, function( res ) {
-        //         if ( !res.isLocked ) {
-        //             res.value = board.calculateResult( rollResult, res.id );
-        //         }
-        //     } );
-
-        //     vm.boardTotal = board.sumResults( vm.boardResults );
-        // } );
-
-        // $scope.$on( '$destroy', unsubscribe );
-
-        // var unsubscribe = $ngRedux.connect( handleDiceRoll )( vm );
-        // $scope.$on( '$destroy', unsubscribe );
-
-        // function handleDiceRoll( state ) {
-        //     return state;
-        // }
-
         $scope.$on( 'dices.roll', function( event, rollResult ) {
             angular.forEach( vm.boardResults, function( res ) {
                 if ( !res.isLocked ) {
@@ -64,10 +40,6 @@
                 }
             } );
 
-            // $ngRedux.dispatch( {
-            //     type: 'BOARD_TURN_END',
-            //     saveResult: true
-            // } );
             $scope.$broadcast( 'dices.saveResult' );
         }
     }

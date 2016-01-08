@@ -1,6 +1,5 @@
 <div>
     <md-button type="button" class="md-raised md-primary" ng-click="vm.rollDice()" ng-disabled="!vm.canRoll">Roll!</md-button>
-    <md-button type="button" class="md-raised md-primary" ng-click="vm.secondReducer()">Multi reducers</md-button>
     <div class="dice">
         <span ng-repeat="die in vm.dice track by $index">
         <md-button type="button" class="md-button-sm" ng-click="die.isLocked = !die.isLocked" ng-class="{ 'disabled': die.isLocked }">{{ die.value }}</md-button>
