@@ -1,30 +1,18 @@
 <div layout="vertical" layout-fill>
-    <md-content>
+    <md-content class="bg-primary">
         <header>
             <acme-navbar creation-date="main.creationDate"></acme-navbar>
         </header>
         <section class="jumbotron">
-            <h1>'Allo, 'Allo!</h1>
+            <yatzy-sign></yatzy-sign>
             <p class="lead">
-                <img src="assets/images/yeoman.png" alt="I'm Yeoman">
-                <br> Always a pleasure scaffolding your apps.
+                <img id="dice-logo" src="assets/images/dice-logo.svg" alt="Pair of dice">
+                <br> 'Cause it was cheaper to write the game than buying 5 dice, piece of paper and a pen
             </p>
             <p>
                 With ♥ thanks to the contributions of
                 <acme-malarkey extra-values="['Yeoman', 'Gulp', 'Angular']"></acme-malarkey>
             </p>
         </section>
-        <div class="techs" layout-align="center">
-            <md-card ng-repeat="awesomeThing in main.awesomeThings | orderBy:'rank'">
-                <md-card-content>
-                    <img class="pull-right" ng-src="assets/images/{{ awesomeThing.logo }}" alt="{{ awesomeThing.title }}">
-                    <h3 class="md-title">{{ awesomeThing.title }}</h3>
-                    <p>{{ awesomeThing.description }}</p>
-                </md-card-content>
-                <div class="md-action-buttons">
-                    <md-button ng-href="{{ awesomeThing.url }}">Website</md-button>
-                </div>
-            </md-card>
-        </div>
     </md-content>
 </div>

@@ -54,25 +54,34 @@ section.jumbotron {
 section.jumbotron h1 {
     font-size: 3em;
 }
-.techs {
-    display: flex;
-    flex-flow: row wrap;
+html {
+    position: relative;
+    min-height: 100%;
 }
-.techs md-card {
-    width: 30%;
+body {
+    height: 100%;
 }
-.techs md-card img.pull-right {
-    float: right;
-    width: 100px;
+.main-wrapper {
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 0;
 }
-
+.bg-primary {
+    background-color: #5aadbb;
+}
+md-content {
+    width: 100%;
+}
 table {
     border-collapse: collapse;
 }
 .table-xs {
     width: 300px;
 }
-table td, table th {
+table td,
+table th {
     padding: 0 10px;
 }
 table .md-button {
@@ -88,4 +97,8 @@ table .md-button {
 }
 .md-button-sm {
     min-width: 44px;
+}
+
+#dice-logo {
+    margin-left: 20px;
 }

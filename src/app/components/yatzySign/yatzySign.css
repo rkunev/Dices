@@ -1,0 +1,65 @@
+#yatzy-sign {
+    position: relative;
+    display: block;
+    width: 400px;
+    height: 140px;
+    text-align: left;
+    left: 50%;
+    margin-left: -300px;
+}
+#yatzy-sign>span[class^=w]:nth-of-type(n+0) {
+    display: block;
+    position: absolute;
+    -webkit-transform-origin: 50% 80%;
+    transform-origin: 50% 80%;
+}
+#yatzy-sign span {
+    font-family: 'Roboto Slab';
+    font-size: 70px;
+    font-weight: regular;
+    font-style: normal;
+    line-height: 0.9;
+    white-space: pre;
+    overflow: visible;
+    padding: 0px;
+}
+#yatzy-sign .w0 {
+    -webkit-transform: rotate(-0.69rad);
+    transform: rotate(-0.69rad);
+    width: 41px;
+    height: 63px;
+    left: 193.38px;
+    top: 54.87px;
+}
+#yatzy-sign .w1 {
+    -webkit-transform: rotate(-0.32rad);
+    transform: rotate(-0.32rad);
+    width: 39px;
+    height: 63px;
+    left: 233.72px;
+    top: 33.56px;
+}
+#yatzy-sign .w2 {
+    -webkit-transform: rotate(0rad);
+    transform: rotate(0rad);
+    width: 25px;
+    height: 63px;
+    left: 282.02px;
+    top: 27px;
+}
+#yatzy-sign .w3 {
+    -webkit-transform: rotate(0.31rad);
+    transform: rotate(0.31rad);
+    width: 37px;
+    height: 63px;
+    left: 316.32px;
+    top: 33.57px;
+}
+#yatzy-sign .w4 {
+    -webkit-transform: rotate(0.69rad);
+    transform: rotate(0.69rad);
+    width: 41px;
+    height: 63px;
+    left: 356.88px;
+    top: 57.26px;
+}

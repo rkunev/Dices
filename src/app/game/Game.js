@@ -8,10 +8,10 @@
     /** @ngInject */
     function routerConfig( $stateProvider ) {
         $stateProvider
-            .state( 'about', {
-                url: '/about',
-                templateUrl: 'app/about/about.html',
-                controller: 'AboutController',
+            .state( 'game', {
+                url: '/game',
+                templateUrl: 'app/game/game.html',
+                controller: 'GameController',
                 controllerAs: 'vm',
                 reload: true
             } );

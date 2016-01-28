@@ -3,10 +3,10 @@
 
     angular
         .module( 'dices' )
-        .controller( 'AboutController', AboutController );
+        .controller( 'GameController', GameController );
 
     /** @ngInject */
-    function AboutController( $scope, notification, player ) {
+    function GameController( $scope, notification, player ) {
         var vm = this;
 
         vm.creationDate = 1449843091733;
