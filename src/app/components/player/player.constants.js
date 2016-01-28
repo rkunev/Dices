@@ -2,7 +2,7 @@
     'use strict';
 
     var defaultPlayer = {
-        name: 'Loser'
+        name: 'Player1'
     };
 
     angular

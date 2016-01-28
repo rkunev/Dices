@@ -6,7 +6,7 @@
         .service( 'player', player );
 
     /** @ngInject */
-    function player( localStorageService, notification ) {
+    function player( localStorageService, notification, defaultPlayer ) {
         var service = {
             savePlayer: savePlayer,
             getPlayers: getPlayers,
@@ -20,7 +20,8 @@
         return service;
 
         function getLastPlayedPlayer() {
-            var players = localStorageService.get( 'players' );
+            var players = localStorageService.get( 'players' ) || [ defaultPlayer ];
+
             return players[ players.length - 1 ];
         }
 

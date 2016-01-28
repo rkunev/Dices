@@ -38,6 +38,7 @@
             var unsubscribeFromSaveResult = $rootScope.$on( 'dices.saveResult', resultSaved );
             $scope.$on( '$destroy', cleanUpEvents );
 
+            //* Unsubscribe from all events */
             function cleanUpEvents() {
                 unsubscribeFromSaveResult();
             }
