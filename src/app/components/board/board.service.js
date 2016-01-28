@@ -9,6 +9,8 @@
     function board( $log, diceCombinations ) {
         var service = {
             calculateResult: calculateResult,
+            saveResult: saveResult,
+            isGameOver: isGameOver,
             sumResults: sumResults
         };
 
@@ -194,6 +196,47 @@
             }
 
             return result;
+        }
+
+        /**
+         * Returns a new BoardModel with the locked result row from the board rows.
+         *
+         * @param  {Object}            result       The single row to be locked
+         * @param  {Object|BoardModel} boardResults All current board rows
+         * @return {Object|BoardModel}              The new BoardModel
+         */
+        function saveResult( result, boardResults ) {
+            var newResults = angular.copy( boardResults );
+
+            angular.forEach( newResults, function( res, i ) {
+                if ( res.id === result.id ) {
+                    newResults[ i ].isLocked = true;
+                }
+            } );
+
+            return newResults;
+        }
+
+        /**
+         * Iterates all rows through provided BoardModel to check for unlocked rows.
+         * If there aren't any unlocked rows then the game is over.
+         *
+         * @param  {Object|BoardModel}  boardResults All current board rows
+         * @return {Boolean}
+         */
+        function isGameOver( boardResults ) {
+            var areAllRowsLocked = true;
+
+            for ( var row in boardResults ) {
+
+                //* If any of the rows is unlocked then the game is not over */
+                if ( !boardResults[ row ].isLocked ) {
+                    areAllRowsLocked = false;
+                    break;
+                }
+            }
+
+            return areAllRowsLocked;
         }
 
         function countInArray( array, what ) {

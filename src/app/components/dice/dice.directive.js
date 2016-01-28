@@ -36,11 +36,13 @@
 
             //* Events */
             var unsubscribeFromSaveResult = $rootScope.$on( 'dices.saveResult', resultSaved );
+            var unsubscribeFromGameOver = $rootScope.$on( 'dices.gameOver', gameOver );
             $scope.$on( '$destroy', cleanUpEvents );
 
             //* Unsubscribe from all events */
             function cleanUpEvents() {
                 unsubscribeFromSaveResult();
+                unsubscribeFromGameOver();
             }
 
             function resultSaved() {
@@ -83,6 +85,10 @@
                         isLocked: false
                     } );
                 }
+            }
+
+            function gameOver() {
+                vm.canRoll = false;
             }
         }
     }

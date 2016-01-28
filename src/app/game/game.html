@@ -1,15 +1,10 @@
 <div layout="vertical" layout-fill layout="row">
     <md-content flex="100">
-        <header>
+        <header style="margin-bottom: 25px;">
             <acme-navbar current-player="vm.currentPlayer" creation-date="vm.creationDate"></acme-navbar>
         </header>
-        <div layout="row" layout-wrap style="margin-bottom: 25px;">
-
-        </div>
         <div layout="row" layout-wrap>
-            <div flex="33">
-                <board current-player="vm.currentPlayer"></board>
-            </div>
+            <board flex="25" current-player="vm.currentPlayer"></board>
             <div layout-align="end center" flex="33">
                 <dice></dice>
             </div>

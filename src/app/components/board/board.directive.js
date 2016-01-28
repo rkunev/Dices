@@ -22,7 +22,7 @@
         return directive;
 
         /** @ngInject */
-        function BoardController( $scope, $rootScope, board, BoardModel ) {
+        function BoardController( $scope, $rootScope, $state, board, BoardModel, notification ) {
             var vm = this;
 
             vm.boardTotal = 0;
@@ -46,13 +46,21 @@
             }
 
             function saveResult( result ) {
-                angular.forEach( vm.boardResults, function( res, i ) {
-                    if ( res.id === result.id ) {
-                        vm.boardResults[ i ].isLocked = true;
-                    }
-                } );
+                vm.boardResults = board.saveResult( result, vm.boardResults );
+                $rootScope.$emit( 'dices.saveResult' );
 
-                $rootScope.$emit( 'dices.saveResult' )
+                if ( board.isGameOver( vm.boardResults ) ) {
+                    notification.showConfirm( {
+                        title: 'Game is over',
+                        textContent: 'Your result: ' + vm.boardTotal,
+                        ok: 'New Game?',
+                        cancel: 'Nah!'
+                    } ).then( function() {
+                        $state.forceReload();
+                    } );
+
+                    $rootScope.$emit( 'dices.gameOver' );
+                }
             }
         }
     }

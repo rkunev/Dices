@@ -96,11 +96,11 @@
          * then the dialog animation will start from the clicked location
          *
          * @link https://material.angularjs.org/latest/api/service/$mdDialog
-         * @param  {Object} event   The event object
          * @param  {Object} options Dialog preset. See @link for all preset options
+         * @param  {Object} event   The event object
          * @return {Promise}        A promise that can be resolved
          */
-        function showAlert( event, options ) {
+        function showAlert( options, event ) {
             currentDialog = $mdDialog.show(
                 $mdDialog.alert()
                     .title( options.title || notificationSettings.DIALOG_TITLE )
@@ -120,11 +120,11 @@
          * Use returned promise to resolve user's action (ok/cancel)
          *
          * @link https://material.angularjs.org/latest/api/service/$mdDialog
-         * @param  {Object} event   The event object
          * @param  {Object} options Dialog preset. See @link for all preset options
+         * @param  {Object} event   The event object
          * @return {Promise}        A promise that can be resolved
          */
-        function showConfirm( event, options ) {
+        function showConfirm( options, event ) {
             currentDialog = $mdDialog.show(
                 $mdDialog.confirm()
                     .title( options.title || notificationSettings.DIALOG_TITLE )
