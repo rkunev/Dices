@@ -1,25 +1,17 @@
 <div layout="vertical" layout-fill layout="row">
     <md-content flex="100">
         <header>
-            <acme-navbar creation-date="vm.creationDate"></acme-navbar>
+            <acme-navbar current-player="vm.currentPlayer" creation-date="vm.creationDate"></acme-navbar>
         </header>
         <div layout="row" layout-wrap style="margin-bottom: 25px;">
-            <div layout-align="start center" flex="25" flex-offset="25">
-                <form name="playerForm" ng-submit="vm.saveCurrentPlayer()">
-                    <md-input-container>
-                        <label>What's your name?</label>
-                        <input ng-model="vm.currentPlayer.name">
-                    </md-input-container>
-                    <md-button type="button" class="md-raised md-primary" ng-click="vm.saveCurrentPlayer()">Use this name</md-button>
-                </form>
-            </div>
-            <div layout-align="end center" flex="25">
-                <dice></dice>
-            </div>
+
         </div>
         <div layout="row" layout-wrap>
-            <div flex="50" flex-offset="25">
-                <board></board>
+            <div flex="33">
+                <board current-player="vm.currentPlayer"></board>
+            </div>
+            <div layout-align="end center" flex="33">
+                <dice></dice>
             </div>
         </div>
     </md-content>

@@ -13,7 +13,9 @@
             controller: BoardController,
             controllerAs: 'vm',
             // If scope is not present, the unit tests will throw an error
-            scope: {},
+            scope: {
+                currentPlayer: '='
+            },
             bindToController: true
         };
 

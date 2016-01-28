@@ -49,10 +49,12 @@
             angular.forEach( players, function( p, i ) {
                 /** @todo: Use player id instead of name */
                 if ( p.name === player.name ) {
-                    players[ i ] = p;
+                    players.splice( i, 1 );
+                    players.push( p );
                 }
-            });
+            } );
 
+            notification.success( '"' + player.name + '" created' );
             localStorageService.set( 'players', players );
         }
 
