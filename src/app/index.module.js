@@ -9,7 +9,6 @@
             'ngSanitize',
             'ngMessages',
             'ngAria',
-            'restangular',
             'ui.router',
             'ngMaterial',
             'LocalStorageModule',
