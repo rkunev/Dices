@@ -9,5 +9,9 @@
     "angular": true,
     "module": true,
     "inject": true
+  },
+  "rules": {
+    "angular/log": 0,
+    "no-console": 0
   }
 }

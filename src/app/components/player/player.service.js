@@ -3,21 +3,17 @@
 
     angular
         .module( 'dices.player' )
-        .service( 'player', player );
+        .service( 'playerService', playerService );
 
     /** @ngInject */
-    function player( localStorageService, notification, defaultPlayer ) {
-        var service = {
-            savePlayer: savePlayer,
-            getPlayers: getPlayers,
-            getLastPlayedPlayer: getLastPlayedPlayer,
-            playerExists: playerExists,
-            createPlayer: createPlayer,
-            updatePlayer: updatePlayer,
-            removePlayers: removePlayers
-        };
-
-        return service;
+    function playerService( localStorageService, notificationService, defaultPlayer ) {
+        this.savePlayer = savePlayer;
+        this.getPlayers = getPlayers;
+        this.getLastPlayedPlayer = getLastPlayedPlayer;
+        this.playerExists = playerExists;
+        this.createPlayer = createPlayer;
+        this.updatePlayer = updatePlayer;
+        this.removePlayers = removePlayers;
 
         function getLastPlayedPlayer() {
             var players = localStorageService.get( 'players' ) || [ defaultPlayer ];
@@ -39,7 +35,7 @@
             if ( player.name ) {
                 players.push( player );
                 localStorageService.set( 'players', players );
-                notification.success( '"' + player.name + '" created' );
+                notificationService.success( '"' + player.name + '" created' );
             }
         }
 
@@ -54,7 +50,7 @@
                 }
             } );
 
-            notification.success( '"' + player.name + '" created' );
+            notificationService.success( '"' + player.name + '" created' );
             localStorageService.set( 'players', players );
         }
 

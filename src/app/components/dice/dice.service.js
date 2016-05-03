@@ -3,27 +3,34 @@
 
     angular
         .module( 'dices' )
-        .factory( 'diceEngine', diceEngine );
+        .service( 'diceService', diceService );
 
     /** @ngInject */
-    function diceEngine( gameRules ) {
+    function diceService() {
         var rolledTimes = 0;
-        var service = {
-            rollDice: rollDice,
-            canRoll: canRoll,
-            incrementRollCounter: incrementRollCounter,
-            resetRollCounter: resetRollCounter,
-            rolledTimes: rolledTimes
+
+        // @todo: This should be a .config of the module
+        var gameRules = {
+            diceCount: 5,
+            maxRolls: 3
         };
 
-        return service;
+        this.roll = roll;
+        this.canRoll = canRoll;
+        this.incrementRollCounter = incrementRollCounter;
+        this.resetRollCounter = resetRollCounter;
+        this.getDiceCount = getDiceCount;
+
+        function getDiceCount() {
+            return gameRules.diceCount;
+        }
 
         /**
          * Generates a random number between 1 and 6
          *
          * @return {Integer} The rolled dice.
          */
-        function rollDice() {
+        function roll() {
             if ( this.canRoll() ) {
                 return Math.floor( Math.random() * 6 ) + 1;
             }
@@ -35,21 +42,21 @@
          * @return {Boolean} True if rolledTimes counter is less than max roll count
          */
         function canRoll() {
-            return ( this.rolledTimes < gameRules.MAX_ROLLS );
+            return ( rolledTimes < gameRules.maxRolls );
         }
 
         /**
          * Update roll counter when the dice are thrown.
          */
         function incrementRollCounter() {
-            this.rolledTimes++;
+            rolledTimes++;
         }
 
         /**
          * Reset roll counter
          */
         function resetRollCounter() {
-            this.rolledTimes = 0;
+            rolledTimes = 0;
         }
     }
 } )();

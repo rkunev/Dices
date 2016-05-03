@@ -3,16 +3,15 @@
 
     angular
         .module( 'dices' )
-        .directive( 'dice', dice );
+        .directive( 'dice', diceDirective );
 
     /** @ngInject */
-    function dice() {
+    function diceDirective() {
         var directive = {
             restrict: 'E',
             templateUrl: 'app/components/dice/dice.html',
             controller: DiceController,
             controllerAs: 'vm',
-            // If scope is not present, the unit tests will throw an error
             scope: {},
             bindToController: true
         };
@@ -20,7 +19,7 @@
         return directive;
 
         /** @ngInject */
-        function DiceController( $scope, $rootScope, diceEngine, gameRules ) {
+        function DiceController( $scope, $rootScope, diceService ) {
             var vm = this;
 
             vm.canRoll = true;
@@ -31,55 +30,53 @@
 
             function activate() {
                 getInitialDiceValues();
-                diceEngine.resetRollCounter();
+                diceService.resetRollCounter();
             }
 
-            //* Events */
+            // Events
             var unsubscribeFromSaveResult = $rootScope.$on( 'dices.saveResult', resultSaved );
             var unsubscribeFromGameOver = $rootScope.$on( 'dices.gameOver', gameOver );
             $scope.$on( '$destroy', cleanUpEvents );
 
-            //* Unsubscribe from all events */
             function cleanUpEvents() {
                 unsubscribeFromSaveResult();
                 unsubscribeFromGameOver();
             }
 
             function resultSaved() {
-                //* Unlock button */
-                diceEngine.resetRollCounter();
-                vm.canRoll = diceEngine.canRoll();
 
-                //* Clear dices */
+                // Unlock button
+                diceService.resetRollCounter();
+                vm.canRoll = diceService.canRoll();
+
+                // Clear dices
                 vm.dice.forEach( function( die ) {
                     die.isLocked = false;
                 } );
 
-                //* Roll'em again */
                 rollDice();
             }
 
-            //* Roll all the dice */
             function rollDice() {
                 var rollResult = [];
 
                 vm.dice.forEach( function( die ) {
                     if ( !die.isLocked ) {
-                        die.value = diceEngine.rollDice();
+                        die.value = diceService.roll();
                     }
 
                     rollResult.push( die.value );
                 } );
 
-                diceEngine.incrementRollCounter();
-                vm.canRoll = diceEngine.canRoll();
+                diceService.incrementRollCounter();
+                vm.canRoll = diceService.canRoll();
 
                 $rootScope.$emit( 'dices.roll', rollResult );
             }
 
-            //* Populate initial dice values using gameRules */
+            // Populate initial dice values using gameRules. TODO: should be a model
             function getInitialDiceValues() {
-                for ( var i = 1; i <= gameRules.DICE_COUNT; i++ ) {
+                for ( var i = 1; i <= diceService.getDiceCount(); i++ ) {
                     vm.dice.push( {
                         value: 0,
                         isLocked: false

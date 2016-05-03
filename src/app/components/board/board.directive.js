@@ -3,16 +3,15 @@
 
     angular
         .module( 'dices.board' )
-        .directive( 'board', board );
+        .directive( 'board', boardDirective );
 
     /** @ngInject */
-    function board() {
+    function boardDirective() {
         var directive = {
             restrict: 'E',
             templateUrl: 'app/components/board/board.html',
             controller: BoardController,
             controllerAs: 'vm',
-            // If scope is not present, the unit tests will throw an error
             scope: {
                 currentPlayer: '='
             },
@@ -22,35 +21,35 @@
         return directive;
 
         /** @ngInject */
-        function BoardController( $scope, $rootScope, $state, board, BoardModel, notification ) {
+        function BoardController( $scope, $rootScope, $state, boardService, BoardModel, notificationService ) {
             var vm = this;
 
             vm.boardTotal = 0;
-            vm.boardResults = new BoardModel();
+            vm.board = new BoardModel();
             vm.saveResult = saveResult;
 
             var unsubscribeFromRoll = $rootScope.$on( 'dices.roll', function( event, rollResult ) {
-                angular.forEach( vm.boardResults, function( res ) {
+                // @todo: should be part of the BoardModel
+                angular.forEach( vm.board, function( res ) {
                     if ( !res.isLocked ) {
-                        res.value = board.calculateResult( rollResult, res.id );
+                        res.value = boardService.calculateResult( rollResult, res.id );
                     }
                 } );
 
-                vm.boardTotal = board.sumResults( vm.boardResults );
+                // @todo: should be part of the BoardModel
+                vm.boardTotal = boardService.sumResults( vm.board );
             } );
 
-            $scope.$on( '$destroy', cleanUpEvents );
+            $scope.$on( '$destroy', unsubscribeFromRoll );
 
-            function cleanUpEvents() {
-                unsubscribeFromRoll();
-            }
-
-            function saveResult( result ) {
-                vm.boardResults = board.saveResult( result, vm.boardResults );
+            function saveResult( row ) {
+                vm.board = boardService.saveResult( row, vm.board );
                 $rootScope.$emit( 'dices.saveResult' );
 
-                if ( board.isGameOver( vm.boardResults ) ) {
-                    notification.showConfirm( {
+                if ( boardService.isGameOver( vm.board ) ) {
+                    $rootScope.$emit( 'dices.gameOver' );
+
+                    notificationService.showConfirm( {
                         title: 'Game is over',
                         textContent: 'Your result: ' + vm.boardTotal,
                         ok: 'New Game?',
@@ -58,8 +57,6 @@
                     } ).then( function() {
                         $state.forceReload();
                     } );
-
-                    $rootScope.$emit( 'dices.gameOver' );
                 }
             }
         }

@@ -3,10 +3,10 @@
 
     angular
         .module( 'dices' )
-        .directive( 'acmeNavbar', acmeNavbar );
+        .directive( 'navbar', navbarDirective );
 
     /** @ngInject */
-    function acmeNavbar() {
+    function navbarDirective() {
         var directive = {
             restrict: 'E',
             templateUrl: 'app/components/navbar/navbar.html',
@@ -21,20 +21,20 @@
         return directive;
 
         /** @ngInject */
-        function NavbarController( $mdSidenav, moment, player ) {
+        function NavbarController( $mdSidenav, moment, playerService ) {
             var vm = this;
 
             // "vm.creation" is avaible by directive option "bindToController: true"
             vm.relativeDate = moment( vm.creationDate ).fromNow();
             vm.toggleSidenav = toggleSidenav;
 
-            vm.players = player.getPlayers();
-            vm.currentPlayer = player.getLastPlayedPlayer();
+            vm.players = playerService.getPlayers();
+            vm.currentPlayer = playerService.getLastPlayedPlayer();
             vm.saveCurrentPlayer = saveCurrentPlayer;
 
             function saveCurrentPlayer() {
-                player.savePlayer( vm.currentPlayer );
-                vm.players = player.getPlayers();
+                playerService.savePlayer( vm.currentPlayer );
+                vm.players = playerService.getPlayers();
             }
 
             function toggleSidenav( sidenavId ) {

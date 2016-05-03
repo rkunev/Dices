@@ -7,11 +7,11 @@
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="result in vm.boardResults">
-            <td>{{ result.label }}</td>
-            <td ng-class="{ 'disabled': result.isLocked }">{{ result.value }}</td>
+        <tr ng-repeat="row in vm.board"> <!-- track by row.id -->
+            <td>{{ row.label }}</td>
+            <td ng-class="{ 'disabled': row.isLocked }">{{ row.value }}</td>
             <td>
-                <md-button ng-disabled="result.isLocked" ng-click="vm.saveResult( result )" type="button" class="md-flat md-button-sm"><md-icon>check</md-icon></md-button>
+                <md-button ng-disabled="row.isLocked" ng-click="vm.saveResult( row )" type="button" class="md-flat md-button-sm"><md-icon>check</md-icon></md-button>
             </td>
         </tr>
     </tbody>

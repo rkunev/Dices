@@ -3,10 +3,10 @@
 
     angular
         .module( 'dices' )
-        .config( config );
+        .config( indexConfig );
 
     /** @ngInject */
-    function config( $provide, $logProvider ) {
+    function indexConfig( $provide, $logProvider ) {
         // Enable log
         $logProvider.debugEnabled( true );
 

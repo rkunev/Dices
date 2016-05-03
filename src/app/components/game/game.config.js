@@ -10,9 +10,7 @@
         $stateProvider
             .state( 'game', {
                 url: '/game',
-                templateUrl: 'app/game/game.html',
-                controller: 'GameController',
-                controllerAs: 'vm',
+                template: '<game></game>',
                 reload: true
             } );
     }

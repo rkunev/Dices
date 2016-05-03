@@ -3,10 +3,10 @@
 
     angular
         .module( 'dices' )
-        .directive( 'yatzySign', yatzySign );
+        .directive( 'yatzySign', yatzySignDirective );
 
     /** @ngInject */
-    function yatzySign() {
+    function yatzySignDirective() {
         var directive = {
             restrict: 'E',
             templateUrl: 'app/components/yatzySign/yatzySign.html'

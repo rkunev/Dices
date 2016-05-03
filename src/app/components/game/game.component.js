@@ -3,7 +3,11 @@
 
     angular
         .module( 'dices' )
-        .controller( 'GameController', GameController );
+        .component( 'game', {
+            templateUrl: 'app/components/game/game.html',
+            controller: GameController,
+            controllerAs: 'vm'
+        } );
 
     /** @ngInject */
     function GameController() {

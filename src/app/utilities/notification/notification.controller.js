@@ -2,7 +2,7 @@
     'use strict';
 
     angular
-        .module( 'dices' )
+        .module( 'dices.utilities' )
         .controller( 'NotificationController', NotificationController );
 
     /** @ngInject */

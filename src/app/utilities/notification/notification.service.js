@@ -2,34 +2,41 @@
     'use strict';
 
     angular
-        .module( 'dices' )
-        .service( 'notification', notification );
+        .module( 'dices.utilities' )
+        .service( 'notificationService', notificationService );
 
     /** @ngInject */
-    function notification( $mdToast, $mdDialog, $log, $document, notificationSettings ) {
+    function notificationService( $mdToast, $mdDialog, $document ) {
         var currentToast;
         var currentDialog;
-        var service = {
-            error: error,
-            info: info,
-            success: success,
-            warning: warning,
-
-            log: log,
-            clearActiveNotification: clearActiveNotification,
-            showAlert: showAlert,
-            showConfirm: showConfirm
+        var notificationSettings = {
+            POSITION: 'top right',
+            DIALOG_TITLE: 'Caution!',
+            DIALOG_TEXT_CONTENT: '',
+            DIALOG_ARIA_LABEL: 'Caution Dialog',
+            DIALOG_OK: 'OK! Got it.',
+            DIALOG_CANCEL: 'Cancel'
         };
 
-        return service;
+        this.error = error;
+        this.info = info;
+        this.success = success;
+        this.warning = warning;
+
+        this.log = log;
+
+        this.clearActiveNotification = clearActiveNotification;
+
+        this.showAlert = showAlert;
+        this.showConfirm = showConfirm;
 
         function error( message ) {
             $mdToast.show( {
                 controller: 'NotificationController',
                 controllerAs: 'vm',
-                templateUrl: 'app/components/notification/notification-template.html',
+                templateUrl: 'app/utilities/notification/notification-template.html',
                 parent: $document.body,
-                hideDelay: 10000,
+                hideDelay: 1500,
                 position: notificationSettings.POSITION,
                 message: message
             } );
@@ -39,9 +46,9 @@
             $mdToast.show( {
                 controller: 'NotificationController',
                 controllerAs: 'vm',
-                templateUrl: 'app/components/notification/notification-template.html',
+                templateUrl: 'app/utilities/notification/notification-template.html',
                 parent: $document.body,
-                hideDelay: 10000,
+                hideDelay: 1500,
                 position: notificationSettings.POSITION,
                 message: message
             } );
@@ -51,7 +58,7 @@
             currentToast = $mdToast.show( {
                 controller: 'NotificationController',
                 controllerAs: 'vm',
-                templateUrl: 'app/components/notification/notification-template.html',
+                templateUrl: 'app/utilities/notification/notification-template.html',
                 parent: $document.body,
                 hideDelay: 1500,
                 position: notificationSettings.POSITION,
@@ -63,9 +70,9 @@
             $mdToast.show( {
                 controller: 'NotificationController',
                 controllerAs: 'vm',
-                templateUrl: 'app/components/notification/notification-template.html',
+                templateUrl: 'app/utilities/notification/notification-template.html',
                 parent: $document.body,
-                hideDelay: 10000,
+                hideDelay: 1500,
                 position: notificationSettings.POSITION,
                 message: message
             } );
