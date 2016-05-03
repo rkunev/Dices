@@ -79,7 +79,7 @@
          * @return {void}
          */
         function log( message, data ) {
-            $log.log( 'Log: ' + message, data );
+            console.log( 'Log: ' + message, data );
         }
 
         /**

@@ -6,7 +6,7 @@
         .service( 'board', board );
 
     /** @ngInject */
-    function board( $log, diceCombinations ) {
+    function board( diceCombinations ) {
         var service = {
             calculateResult: calculateResult,
             saveResult: saveResult,
@@ -16,6 +16,12 @@
 
         return service;
 
+        /**
+         * Calculates the points from the saved board entries.
+         *
+         * @param  {BoardModel} allResults
+         * @return {number}
+         */
         function sumResults( allResults ) {
             var result = 0;
 
@@ -28,6 +34,14 @@
             return result;
         }
 
+        /**
+         * Given the roll and the combination will calculate the possible result.
+         * An entry point for calculating any dice result.
+         *
+         * @param  {Array} rollResult
+         * @param  {number} combinationId The combination Id from the board constants
+         * @return {number}
+         */
         function calculateResult( rollResult, combinationId ) {
             var result = 0;
 
@@ -66,12 +80,20 @@
                     result = getArraySum( rollResult );
                     break;
                 default:
-                    $log.warn( 'No such combination' );
+                    console.warn( 'No such combination' );
             }
 
             return result;
         }
 
+        /**
+         * Given the rolled dice checks to see if there are duplicate dice for the given kind.
+         * Returns the sum of the found duplicate dice.
+         *
+         * @param  {Array} rollResult
+         * @param  {number} kind      Which duplicates to find (1, 2, 3, 4, 5 or 6)
+         * @return {number}
+         */
         function calculateOneOfAKind( rollResult, kind ) {
             var result = 0;
 
@@ -84,6 +106,13 @@
             return result;
         }
 
+        /**
+         * Given the rolled dice checks to see if there is a pair (i.e. 2x6).
+         * Returns the sum of the pair.
+         *
+         * @param  {Array} rollResult
+         * @return {number}
+         */
         function calculateOnePair( rollResult ) {
             var result = 0,
                 pairSum = 0,
@@ -102,6 +131,13 @@
             return result;
         }
 
+        /**
+         * Given the rolled dice checks to see if there are two unique pairs (i.e. 2x6 + 2x5).
+         * Returns the sum of the pairs.
+         *
+         * @param  {Array} rollResult
+         * @return {number}
+         */
         function calculateTwoPairs( rollResult ) {
             var result = 0,
                 pairs = [],
@@ -132,6 +168,14 @@
             return result;
         }
 
+        /**
+         * Given the rolled dice checks to see if there are n dice of the same kind.
+         * Returns the sum of the found duplicate dice.
+         *
+         * @param  {Array} rollResult
+         * @param  {number} n         How many duplicates to find (i.e. 2, 3, 4 or 5)
+         * @return {number}
+         */
         function calculateSameOfAKind( rollResult, n ) {
             var result = 0;
 
@@ -145,6 +189,14 @@
             return result;
         }
 
+        /**
+         * Given the rolled dice checks to see if there is any straights.
+         * Returns the score for rolling the respective straight.
+         *
+         * @param  {Array} rollResult
+         * @param  {number} combinationId The combination Id from the board constants
+         * @return {number}
+         */
         function calculateStraight( rollResult, combinationId ) {
             var result = 0;
 
@@ -166,6 +218,13 @@
             return result;
         }
 
+        /**
+         * Given the rolled dice checks to see if there is 2xN + 3xM combination.
+         * Returns the score for rolling a full house.
+         *
+         * @param  {Array} rollResult
+         * @return {number}
+         */
         function calculateFullHouse( rollResult ) {
             var result = 0,
                 threeOfAKind = [],
@@ -187,6 +246,13 @@
             return result;
         }
 
+        /**
+         * Given the rolled dice checks to see if there are 5 of the same kind.
+         * Returns the score for rolling a yatzy.
+         *
+         * @param  {Array} rollResult
+         * @return {number}
+         */
         function calculateYatzy( rollResult ) {
             var result = 0,
                 yatzy = calculateSameOfAKind( rollResult, 5 );
@@ -249,6 +315,12 @@
             return count;
         }
 
+        /**
+         * Check if the provided array contains duplicates.
+         *
+         * @param  {Array}  array The array to check
+         * @return {Boolean}
+         */
         function hasDuplicates( array ) {
             var sorted_arr = array.slice().sort(),
                 hasDuplicate = false;
@@ -263,10 +335,16 @@
             return hasDuplicate;
         }
 
+        /**
+         * Returns the sum of all numbers in the array.
+         *
+         * @param  {Array} array The array.
+         * @return {Number}      The sum
+         */
         function getArraySum( array ) {
             return array.reduce( function( prev, next ) {
                 return prev + next;
-            } )
+            } );
         }
     }
 
