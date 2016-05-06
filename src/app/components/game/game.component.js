@@ -14,5 +14,6 @@
         var vm = this;
 
         vm.creationDate = 1449843091733;
+        vm.players = []; // keep the players here for all child views
     }
 } )();

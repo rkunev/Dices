@@ -10,7 +10,7 @@
         $stateProvider
             .state( 'home', {
                 url: '/',
-                template: '<app-root></app-root>'
+                template: '<landing-page></landing-page>'
             } );
 
         $urlRouterProvider.otherwise( '/' );

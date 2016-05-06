@@ -6,10 +6,7 @@
         .config( indexConfig );
 
     /** @ngInject */
-    function indexConfig( $provide, $logProvider ) {
-        // Enable log
-        $logProvider.debugEnabled( true );
-
+    function indexConfig( $provide ) {
         $provide.decorator( '$state', function( $delegate, $stateParams ) {
             $delegate.forceReload = function() {
                 return $delegate.go( $delegate.current, $stateParams, {

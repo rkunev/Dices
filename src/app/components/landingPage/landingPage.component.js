@@ -3,8 +3,8 @@
 
     angular
         .module( 'dices' )
-        .component( 'appRoot', {
-            templateUrl: 'app/components/appRoot/appRoot.html',
+        .component( 'landingPage', {
+            templateUrl: 'app/components/landingPage/landingPage.html',
             controller: AppRootController,
             controllerAs: 'vm'
         } );

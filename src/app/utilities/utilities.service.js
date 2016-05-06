@@ -3,15 +3,32 @@
 
     angular
         .module( 'dices.utilities' )
-        .service( 'utilityService', utilityService );
+        .service( 'utilitiesService', utilitiesService );
 
     /** @ngInject */
-    function utilityService() {
+    function utilitiesService() {
         this.splicePair = splicePair;
         this.countInArray = countInArray;
         this.hasDuplicates = hasDuplicates;
         this.getArraySum = getArraySum;
         this.arrayContains = arrayContains;
+        this.generateId = generateId;
+
+        /**
+         * Generates a random rfc4122 version 4 UUID.
+         * @see http://stackoverflow.com/questions/105034/create-guid-uuid-in-javascript
+         *
+         * @return {string}
+         */
+        function generateId() {
+            var uuidv4 = 'xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx'.replace( /[xy]/g, function( c ) {
+                var r = Math.random() * 16 | 0, v = c == 'x' ? r : ( r & 0x3 | 0x8 );
+
+                return v.toString(16);
+            });
+
+            return uuidv4;
+        }
 
         /**
          * Checks if the given array contains the searched value.

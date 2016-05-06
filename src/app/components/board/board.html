@@ -1,24 +1,61 @@
-<table class="text-left table-xs">
+<!-- <table class="text-left table-xs">
     <thead>
         <tr>
-            <th width="40">Combination</th>
-            <th width="50">{{ vm.currentPlayer.name }}</th>
-            <th width="10"></th>
+            <th width="50">Combination</th>
+            <th width="50" class="board-score">{{ vm.user.name }}</th>
+            <th ng-repeat="player in vm.players track by player.id">
+                {{ player.name }}
+            </th>
         </tr>
     </thead>
     <tbody>
-        <tr ng-repeat="row in vm.board"> <!-- track by row.id -->
-            <td>{{ row.label }}</td>
-            <td ng-class="{ 'disabled': row.isLocked }">{{ row.value }}</td>
-            <td>
-                <md-button ng-disabled="row.isLocked" ng-click="vm.saveResult( row )" type="button" class="md-flat md-button-sm"><md-icon>check</md-icon></md-button>
+        <tr ng-repeat="board in vm.boards track by board.id">
+            <td width="50">Row label</td>
+            <td width="50" class="board-score" ng-class="{ 'disabled': row.isLocked }">
+                <md-button ng-disabled="row.isLocked" ng-click="vm.saveResult( row )" type="button" class="md-flat md-button-sm">
+                    {{ row.value }}
+                </md-button>
+            </td>
+            <td ng-repeat="player in vm.players track by player.id">
+                {{ player.name }}
             </td>
         </tr>
     </tbody>
     <tfoot>
         <tr>
-            <td>Total:</td>
-            <td><strong>{{ vm.boardTotal }}</strong></td>
+            <td width="50">Total:</td>
+            <td width="50" class="board-score"><strong>{{ vm.boardTotal }}</strong></td>
         </tr>
     </tfoot>
-</table>
+</table> -->
+<div>
+    <div>Header</div>
+    <div class="clearfix">
+        <div class="pull-left" ng-repeat="board in vm.boards track by board.id">
+            <div ng-repeat="cell in board.scoreSheet.cells track by $index">
+                <md-button ng-disabled="cell.isLocked" ng-click="vm.saveResult( cell )" type="button" class="md-flat md-button-sm">
+                    {{ cell.value }}
+                </md-button>
+            </div>
+            <hr>
+        </div>
+    </div>
+    <div>
+        Footer
+    </div>
+</div>
+
+<style type="text/css">
+    /* Debug styles. Will remove them when styling is done */
+    .pull-left {
+        float: left;
+    }
+    .clearfix:before,
+    .clearfix:after {
+        display: table;
+        content: " ";
+    }
+    .clearfix:after {
+        clear: both;
+    }
+</style>

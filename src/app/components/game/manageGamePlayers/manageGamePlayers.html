@@ -1,0 +1,27 @@
+<div>Who do you wanna play with?</div>
+
+<div class="added-players">
+    <div ng-repeat="player in vm.players track by player.id">
+        <div>
+            {{ player.name }}
+            <md-button type="button" class="md-flat md-warn md-button-sm" ng-click="vm.removePlayer( player )">
+                <md-icon>clear</md-icon>
+            </md-button>
+        </div>
+    </div>
+</div>
+
+<form ng-submit="vm.addPlayer()" layout="row" flex class="inline-button-group">
+    <md-input-container>
+        <label>New Player</label>
+        <md-icon>person</md-icon>
+        <input type="text" ng-model="vm.newPlayer" autofocus>
+    </md-input-container>
+    <div class="inline-button">
+        <md-button type="submit" class="md-flat md-primary md-button-sm">
+            <md-icon>add</md-icon>
+        </md-button>
+    </div>
+</form>
+
+<a disable-click="!vm.players.length" ng-class="{ 'disabled': !vm.players.length }" ui-sref="game.play">Play</a>

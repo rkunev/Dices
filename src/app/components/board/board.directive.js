@@ -13,7 +13,7 @@
             controller: BoardController,
             controllerAs: 'vm',
             scope: {
-                currentPlayer: '='
+                players: '<'
             },
             bindToController: true
         };
@@ -21,40 +21,60 @@
         return directive;
 
         /** @ngInject */
-        function BoardController( $scope, $rootScope, $state, boardService, BoardModel, notificationService ) {
+        function BoardController( $scope, $rootScope, $state, boardService, playerService, notificationService ) {
             var vm = this;
 
-            vm.boardTotal = 0;
-            vm.board = new BoardModel();
+            vm.boards = [];
             vm.saveResult = saveResult;
 
-            var unsubscribeFromRoll = $rootScope.$on( 'dices.roll', function( event, rollResult ) {
-                // @todo: should be part of the BoardModel
-                angular.forEach( vm.board, function( res ) {
-                    if ( !res.isLocked ) {
-                        res.value = boardService.calculateResult( rollResult, res.id );
-                    }
+            activate();
+
+            function activate() {
+                getPlayers();
+                generateBoards();
+                setUpListeners();
+            }
+
+            function getPlayers() {
+                vm.players.push( playerService.getLastPlayedPlayer() );
+            }
+
+            function generateBoards() {
+                vm.boards = boardService.generateBoardsFromPlayers( vm.players );
+                console.log(vm.boards);
+            }
+
+            function setUpListeners() {
+                var unsubscribeFromRoll = $rootScope.$on( 'dices.roll', function( event, roll ) {
+                    vm.boards = boardService.updateBoardScoreSheetCellValues( vm.boards, roll );
                 } );
 
-                // @todo: should be part of the BoardModel
-                vm.boardTotal = boardService.sumResults( vm.board );
-            } );
+                $scope.$on( '$destroy', unsubscribeFromRoll );
+            }
 
-            $scope.$on( '$destroy', unsubscribeFromRoll );
+            function saveResult( cell ) {
+                var winnerBoard;
 
-            function saveResult( row ) {
-                vm.board = boardService.saveResult( row, vm.board );
+                cell.isLocked = true;
+
+                vm.boards = boardService.updateBoardScoreSheetTotal( vm.boards );
+
                 $rootScope.$emit( 'dices.saveResult' );
 
-                if ( boardService.isGameOver( vm.board ) ) {
+                if ( boardService.isGameOver( vm.boards ) ) {
+                    winnerBoard = boardService.getWinnerBoard( vm.boards );
+
                     $rootScope.$emit( 'dices.gameOver' );
 
                     notificationService.showConfirm( {
-                        title: 'Game is over',
-                        textContent: 'Your result: ' + vm.boardTotal,
+                        title: 'Winner: ' + winnerBoard.player.name,
+                        textContent: 'Result: ' + winnerBoard.scoreSheet.total,
                         ok: 'New Game?',
-                        cancel: 'Nah!'
+                        cancel: 'Nah...'
                     } ).then( function() {
+
+                        // @fixme Forcing a full reload will remove the bot/hot-seat player entry
+                        // effectively redirecting to /game/new
                         $state.forceReload();
                     } );
                 }
